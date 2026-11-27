@@ -1,0 +1,41 @@
+# Datasets and large data (do not push)
+capstone_data/
+hm_raw/
+images/
+images.zip
+*.csv
+*.npy
+*.zip
+
+# Dependencies and build output
+node_modules/
+dist/
+build/
+
+# Environment and secrets
+.env
+.env.local
+*.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log

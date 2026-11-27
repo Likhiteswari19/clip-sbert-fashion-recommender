@@ -1,0 +1,163 @@
+Review 2 – Panel Evaluation: Required PPT Content
+Fashion Recommendation / CLIP + SBERT Capstone
+
+================================================================================
+1. REQUIREMENTS
+================================================================================
+
+Functional Requirements
+-----------------------
+* User registration/login
+* Product search
+* Product recommendation
+* Image-based fashion similarity
+* Text-based recommendation
+* New-product/cold-start recommendation
+* Product filtering
+* Recommendation display
+
+Non-Functional Requirements
+---------------------------
+* Response time
+* Recommendation accuracy/relevance
+* Scalability
+* Usability
+* Security
+* Reliability
+
+Constraints
+-----------
+* H&M dataset limitations
+* Limited product images
+* Sparse user history
+* CPU/GPU limitations
+* Cold-start problem
+
+Acceptance Criteria
+-------------------
+* User searches "tshirt" → relevant T-shirts displayed
+* User searches "tshirts" / "t-shrit" (spelling variations) → correct category identified
+* New product with no interaction history → recommendations generated via visual/text features
+
+================================================================================
+2. ALTERNATIVE SOLUTIONS & WHY CLIP + SBERT
+================================================================================
+
+Approach 1: Traditional Content-Based Filtering
+* Uses product attributes only
+* Simple, easy to implement
+* Limited understanding of images/text
+
+Approach 2: Collaborative Filtering
+* Uses user-item interactions
+* Good with sufficient history
+* Cold-start problem for new products/users
+
+Approach 3: CLIP + SBERT + Interaction-Based (SELECTED)
+* CLIP → visual representation (512-dim embeddings)
+* SBERT → text representation
+* Interaction data → user preference
+* Handles new products & sparse history
+* More computationally complex
+
+Why NOT only CLIP / only SBERT / only Collaborative Filtering:
+* CLIP alone misses textual semantics
+* SBERT alone misses visual similarity
+* Collaborative alone fails on cold-start
+* Combined approach covers all 5 project objectives
+
+================================================================================
+3. SYSTEM ARCHITECTURE
+================================================================================
+
+Architecture Diagram (Key Components)
+-------------------------------------
+USER → React Frontend → Backend API
+                            ├── Product Search
+                            └── Recommendation Engine
+                                    ├── CLIP (Image Embeddings)
+                                    ├── SBERT (Text Embeddings)
+                                    └── User History (Interactions)
+                                    ↓
+                            Recommendation Score → Recommended Products → Frontend
+
+Data Flow
+---------
+Product Image → CLIP → Image Embedding (512-d) → Stored
+Product Description → SBERT → Text Embedding → Stored
+User Preference + Image Sim + Text Sim + Interaction History → Recommendation Score → Results
+
+Database Tables
+---------------
+* Products (14,959 items)
+* Customers
+* Transactions/Interactions
+* CLIP Embeddings (14,959 × 512)
+* SBERT Embeddings
+* Recommendation Cache
+
+================================================================================
+4. IMPLEMENTATION STATUS
+================================================================================
+
+Completed
+---------
+* H&M Dataset: products.csv, customers.csv, transactions.csv
+* 14,959 product images processed
+* CLIP embeddings: 14,959 × 512 generated
+* Frontend: Home, Search, Product Listing, Product Details, Recommendation Section
+* Backend: Search API, Product API, Recommendation API, Database connection
+* Database integration (products, users, transactions, embeddings)
+
+To Demonstrate
+--------------
+* Live search: "tshirt", "tshirts", "t-shrit"
+* Product → similar products recommendation
+* CLIP embedding generation evidence
+* SBERT text embedding generation
+* Recommendation logic: how CLIP + SBERT + interactions combine
+
+================================================================================
+5. TESTING & RESULTS
+================================================================================
+
+Test Cases (10-15+)
+-------------------
+| Test Case              | Input              | Expected                    | Actual | Status |
+|------------------------|--------------------|-----------------------------|--------|--------|
+| Search exact           | tshirt             | T-shirts displayed          | Pass   | Pass   |
+| Search plural          | tshirts            | T-shirts displayed          | Pass   | Pass   |
+| Search typo            | t-shrit            | T-shirts displayed          | Pass   | Pass   |
+| Image recommendation   | T-shirt image      | Similar products            | Pass   | Pass   |
+| New product (cold)     | No history product | Recommendations generated   | Pass   | Pass   |
+| Text recommendation    | "formal dress"     | Relevant products           | Pass   | Pass   |
+
+Results & Evidence
+------------------
+* Screenshots: Home, Search, Product Details, Recommendations
+* Sample recommendation outputs
+* Defects found & fixes (e.g., embedding dimension mismatch, search typo handling)
+* Before/after performance
+* Unit test evidence
+
+Live Demo
+---------
+* End-to-end search with typo tolerance
+* Product selection → visual/text-based recommendations
+* New product cold-start demonstration
+
+================================================================================
+MINIMUM PPT FLOW (10-12 Slides)
+================================================================================
+1. Problem Statement
+2. Objectives (5)
+3. Requirements (Func/Non-Func/Constraints/Acceptance)
+4. Alternative Approaches (2-3) + Comparison
+5. Selected Solution: CLIP + SBERT + Interactions
+6. Complete System Architecture + Data Flow
+7. Database Design
+8. Implementation Progress (Frontend/Backend/AI)
+9. CLIP/SBERT Embedding Results
+10. Testing & Test Cases
+11. Sample Results + Defects/Fixes
+12. Live Demo + Future Work
